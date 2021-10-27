@@ -32,8 +32,9 @@
 }
 
 :root {
-  --color-white: #f6f8f9;
-  --color-gray: #d8d8d8;
+  --color-gray-50: #f6f8f9;
+  --color-gray-100: #d8d8d8;
+  --color-gray-200: #c2c2c2;
   --color-black: #2c2e30;
   --color-blue: #37a8ee;
   --color-green: #00dca4;
@@ -49,7 +50,38 @@
   box-sizing: border-box;
 }
 
+@media (max-width: 1080px) {
+  html {
+    font-size: 93.75%;
+  }
+}
+@media (max-width: 720px) {
+  html {
+    font-size: 87.5%;
+  }
+}
+
+html,
 body {
-  font-size: 16px;
+  height: 100%;
+}
+
+body {
+  font-size: 1.2rem;
+}
+
+body,
+button,
+input {
   font-family: "Glacial indifference", sans-serif;
+  line-height: 1.5;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
 }

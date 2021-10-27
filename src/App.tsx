@@ -1,7 +1,9 @@
+import Routes from "./routers";
+
 import "./styles/global.scss";
 
 function App() {
-  return <div>Hello World</div>;
+  return <Routes />;
 }
 
 export default App;
