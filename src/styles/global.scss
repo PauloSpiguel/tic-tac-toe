@@ -1,0 +1,55 @@
+@font-face {
+  font-family: "Glacial Indifference";
+  font-weight: bold;
+  font-style: normal;
+  src: url("../assets/fonts/glacialindifference-bold-webfont.ttf")
+    format("truetype");
+  src: url("../assets/fonts/glacialindifference-bold-webfont.woff")
+      format("woff"),
+    url("../assets/fonts/glacialindifference-bold-webfont.woff2")
+      format(".woff2");
+}
+
+@font-face {
+  font-family: "Glacial Indifference";
+  font-style: italic;
+  src: url("../assets/fonts/glacialindifference-italic-webfont.woff")
+      format("woff"),
+    url("../assets/fonts/glacialindifference-italic-webfont.woff2")
+      format(".woff2");
+}
+
+@font-face {
+  font-family: "Glacial indifference";
+  font-weight: normal;
+  font-style: normal;
+  src: url("../assets/fonts/glacialindifference-regular-webfont.ttf")
+    format("truetype");
+  src: url("../assets/fonts/glacialindifference-regular-webfont.woff")
+      format("woff"),
+    url("../assets/fonts/glacialindifference-regular-webfont.woff2")
+      format(".woff2");
+}
+
+:root {
+  --color-white: #f6f8f9;
+  --color-gray: #d8d8d8;
+  --color-black: #2c2e30;
+  --color-blue: #37a8ee;
+  --color-green: #00dca4;
+  --color-yellow: #f1c40f;
+
+  --primary-button-color: #37a8ee;
+  --secondary-button-color: #00dca4;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 16px;
+  font-family: "Glacial indifference", sans-serif;
+}
