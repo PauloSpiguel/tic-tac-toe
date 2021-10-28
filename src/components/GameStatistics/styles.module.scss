@@ -1,12 +1,11 @@
 .wrapperContainer {
   width: 100%;
-  padding: 0 1.25rem;
+  padding: 2rem 1.25rem;
 
   .gameStatisticContainer {
     max-width: 1400px;
     margin: 0 auto;
     min-height: 300px;
-    padding: 2rem 0;
 
     display: flex;
     flex-direction: column;
@@ -27,6 +26,156 @@
         font-weight: normal;
         margin-bottom: 1rem;
       }
+    }
+
+    .statistics {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .statisticVictories {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+
+        > h3 {
+          font-size: 1.2rem;
+          margin-bottom: 1rem;
+        }
+
+        .statisticPlayers {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 3rem;
+
+          .statisticGroupPlayerItems {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            > h4 {
+              font-size: 1.2rem;
+              margin-bottom: 0.5rem;
+              font-weight: normal;
+            }
+
+            .playerProgress {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              gap: 0.8rem;
+
+              .playerProgressItem {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                > div {
+                  width: 2.2rem;
+                  height: 2.2rem;
+                  border-radius: 50%;
+                  font-size: 0.8rem;
+                  background: var(--color-gray-300);
+                  color: var(--color-gray-50);
+                  font-weight: bold;
+
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                }
+
+                > span {
+                  font-size: 0.8rem;
+                  margin-top: 0.5rem;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .statisticMatchesHistory {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+
+        h3 {
+          font-size: 1.2rem;
+          margin-bottom: 1rem;
+        }
+
+        .statisticMatches {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          padding: 1rem 0;
+
+          .playerMatchesItem {
+            ul {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              li {
+                width: 1rem;
+                height: 1rem;
+                border-radius: 50%;
+                border: 1px solid var(--color-gray-300);
+
+                & + li {
+                  margin-left: 4px;
+                }
+              }
+            }
+          }
+        }
+
+        .gameHistory {
+          text-align: center;
+          .gameHistoryItem {
+            ul {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              li {
+                width: 1.2rem;
+                height: 1.2rem;
+                border: 1px solid var(--color-gray-300);
+                font-size: 0.8rem;
+                padding: 2px;
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                & + li {
+                  margin-left: 4px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .totalTimer {
+    width: 100%;
+    text-align: center;
+
+    h4 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
     }
   }
 }

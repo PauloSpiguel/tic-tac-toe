@@ -9,7 +9,7 @@ export default function PlayerProfile() {
   const [player, setPlayer] = useState({} as PlayerProfileProps);
 
   return (
-    <div className={styles.container}>
+    <section className={styles.container}>
       <div className={styles.wrapperPlayer}>
         <div className={styles.imgProfile}>
           {player.img ? (
@@ -36,6 +36,6 @@ export default function PlayerProfile() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

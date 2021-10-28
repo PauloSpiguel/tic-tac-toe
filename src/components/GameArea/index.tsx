@@ -2,7 +2,7 @@ import styles from "./styles.module.scss";
 
 export default function GameArea() {
   return (
-    <div className={styles.wrapperContainer}>
+    <section className={styles.wrapperContainer}>
       <div className={styles.gameAreaContainer}>
         <div className={styles.gameAreaTitle}>
           <h1>Tic tac toe games</h1>
@@ -35,6 +35,6 @@ export default function GameArea() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
