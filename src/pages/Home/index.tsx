@@ -1,5 +1,4 @@
-import React from "react";
-import GameArea from "../../components/GameArea";
+import BoardGame from "../../components/BoardGame";
 import GameStatistics from "../../components/GameStatistics";
 import PlayerProfile from "../../components/PlayerProfile";
 
@@ -9,7 +8,7 @@ function Home() {
   return (
     <section className={styles.container}>
       <PlayerProfile />
-      <GameArea />
+      <BoardGame />
       <GameStatistics />
     </section>
   );
