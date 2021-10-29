@@ -1,11 +1,12 @@
 .container {
   width: 100%;
-  padding: 2rem 1.25rem;
+  padding: 1.2rem 1.25rem;
+  margin-top: 80px;
 
   .wrapperPlayer {
     max-width: 1400px;
     margin: 0 auto;
-    height: 250px;
+    height: 220px;
     padding: 2rem 0;
     line-height: 1.5;
 
@@ -16,13 +17,17 @@
     .imgProfile {
       background: #fff;
       margin-right: 1.25rem;
+      border: 2px solid var(--color-black);
+      padding: 2px;
+      background: transparent;
       border-radius: 50%;
-      width: 180px;
-      height: 180px;
-      border: 1px solid var(--color-gray-200);
+      line-height: 0;
 
       img {
-        object-fit: cover;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        border: 3px solid var(--color-yellow);
       }
 
       > div {

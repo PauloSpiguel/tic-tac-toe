@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 
-type Player = {
+export type PlayerProps = {
   nickname: string;
   name: string;
   score: number;
@@ -12,32 +12,35 @@ type Player = {
 };
 
 interface PlayerContextData {
-  player: Player;
-  gameRoom: Player[];
-  onChangePlayer: (player: Player) => void;
-  onAddPlayerRoom: (player: Player) => void;
+  player: PlayerProps;
+  gameRoom: PlayerProps[];
+  onSetGameRoom: (players: Object, cb: any) => void;
+  onChangePlayer: (player: PlayerProps) => void;
+  onAddPlayerRoom: (player: PlayerProps) => void;
+  onUpdateScore: (player: PlayerProps) => void;
 }
-
-const playersData: Player[] = [
-  {
-    nickname: "cross",
-    name: "Paulo",
-    score: 0,
-  },
-  {
-    nickname: "circle",
-    name: "John Doe",
-    score: 0,
-  },
-];
 
 export const PlayerContext = createContext({} as PlayerContextData);
 
 const PlayerContextProvider: React.FC = ({ children }) => {
-  const [gameRoom, setGameRoom] = useState<Player[]>(playersData);
-  const [player, setPlayer] = useState(playersData[0] as Player);
+  const [gameRoom, setGameRoom] = useState<PlayerProps[]>(() => {
+    const data = localStorage.getItem("tic-tac-toe.gameRoom");
 
-  function onChangePlayer(player: Player) {
+    const dataParsed = JSON.parse(data);
+
+    return dataParsed || [];
+  });
+  const [player, setPlayer] = useState(() => {
+    const data = localStorage.getItem("tic-tac-toe.gameRoom");
+
+    const dataParsed = JSON.parse(data);
+
+    if (dataParsed === null) return {};
+
+    return dataParsed[0];
+  });
+
+  function onChangePlayer(player: PlayerProps) {
     setPlayer(() => {
       const nextPlayer = gameRoom
         .filter((p) => p.nickname !== player.nickname)
@@ -47,7 +50,7 @@ const PlayerContextProvider: React.FC = ({ children }) => {
     });
   }
 
-  function onAddPlayerRoom(data: Player) {
+  function onAddPlayerRoom(data: PlayerProps) {
     setGameRoom((prevState) => {
       if (prevState.length < 2) {
         return [...prevState, data];
@@ -55,13 +58,49 @@ const PlayerContextProvider: React.FC = ({ children }) => {
     });
   }
 
+  function onUpdateScore(player: PlayerProps) {
+    const updatedPlayer = gameRoom.map((p) => {
+      if (p.nickname === player.nickname) {
+        return { ...p, score: p.score + 1 };
+      }
+      return p;
+    });
+
+    setGameRoom(updatedPlayer);
+  }
+
+  function onSetGameRoom(players: { [k: string]: PlayerProps }, callback: any) {
+    const newRoom = [
+      {
+        ...players.player1,
+        nickname: "cross",
+        score: 0,
+      },
+      {
+        ...players.player2,
+        nickname: "circle",
+        score: 0,
+      },
+    ];
+
+    localStorage.setItem("tic-tac-toe.gameRoom", JSON.stringify(newRoom));
+
+    setGameRoom(newRoom);
+
+    setTimeout(() => {
+      callback(true);
+    }, 500);
+  }
+
   return (
     <PlayerContext.Provider
       value={{
         player,
         gameRoom,
+        onSetGameRoom,
         onChangePlayer,
         onAddPlayerRoom,
+        onUpdateScore,
       }}
     >
       {children}

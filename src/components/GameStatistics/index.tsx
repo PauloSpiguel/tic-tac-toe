@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
+import { GameContext } from "../../context/GameContext";
+import { PlayerContext } from "../../context/PlayerContext";
+import { calcPercentageGame } from "../../utils";
+import Stopwatch from "../Stopwatch";
 
 import styles from "./styles.module.scss";
 
 const GameStatistics: React.FC = () => {
+  const { historyGames, gameIsFinished } = useContext(GameContext);
+  const { gameRoom } = useContext(PlayerContext);
+
   return (
     <section className={styles.wrapperContainer}>
       <div className={styles.gameStatisticContainer}>
@@ -20,11 +27,19 @@ const GameStatistics: React.FC = () => {
                 <h4>Player 1</h4>
                 <div className={styles.playerProgress}>
                   <div className={styles.playerProgressItem}>
-                    <div>61%</div>
+                    <div>
+                      <span>{`${
+                        calcPercentageGame(historyGames, gameRoom[0]).victories
+                      }%`}</span>
+                    </div>
                     <span>V</span>
                   </div>
                   <div className={styles.playerProgressItem}>
-                    <div>39%</div>
+                    <div>
+                      <span>{`${
+                        calcPercentageGame(historyGames, gameRoom[0]).losses
+                      }%`}</span>
+                    </div>
                     <span>L</span>
                   </div>
                 </div>
@@ -33,11 +48,19 @@ const GameStatistics: React.FC = () => {
                 <h4>Player 2</h4>
                 <div className={styles.playerProgress}>
                   <div className={styles.playerProgressItem}>
-                    <div>39%</div>
+                    <div>
+                      <span>{`${
+                        calcPercentageGame(historyGames, gameRoom[1]).victories
+                      }%`}</span>
+                    </div>
                     <span>V</span>
                   </div>
                   <div className={styles.playerProgressItem}>
-                    <div>61%</div>
+                    <div>
+                      <span>{`${
+                        calcPercentageGame(historyGames, gameRoom[1]).losses
+                      }%`}</span>
+                    </div>
                     <span>L</span>
                   </div>
                 </div>
@@ -49,15 +72,15 @@ const GameStatistics: React.FC = () => {
               <h3>Played matches</h3>
               <div className={styles.playerMatchesItem}>
                 <ul>
-                  <li style={{ background: "var(--color-gray-200" }} />
-                  <li style={{ background: "var(--color-gray-200" }} />
-                  <li style={{ background: "var(--color-gray-200" }} />
-                  <li />
-                  <li />
-                  <li />
-                  <li />
-                  <li />
-                  <li />
+                  <li className={historyGames[0] && styles.isActive} />
+                  <li className={historyGames[1] && styles.isActive} />
+                  <li className={historyGames[2] && styles.isActive} />
+                  <li className={historyGames[3] && styles.isActive} />
+                  <li className={historyGames[4] && styles.isActive} />
+                  <li className={historyGames[5] && styles.isActive} />
+                  <li className={historyGames[6] && styles.isActive} />
+                  <li className={historyGames[7] && styles.isActive} />
+                  <li className={historyGames[8] && styles.isActive} />
                 </ul>
               </div>
             </div>
@@ -65,15 +88,87 @@ const GameStatistics: React.FC = () => {
               <h3>Game history</h3>
               <div className={styles.gameHistoryItem}>
                 <ul>
-                  <li>P2</li>
-                  <li>P2</li>
-                  <li>P1</li>
-                  <li></li>
-                  <li></li>
-                  <li></li>
-                  <li></li>
-                  <li></li>
-                  <li></li>
+                  <li>
+                    {historyGames[0]
+                      ? historyGames[0]?.winner !== null
+                        ? historyGames[0]?.winner.nickname === "cross"
+                          ? "P1"
+                          : "P2"
+                        : "X"
+                      : ""}
+                  </li>
+                  <li>
+                    {historyGames[1]
+                      ? historyGames[1]?.winner !== null
+                        ? historyGames[1]?.winner.nickname === "cross"
+                          ? "P1"
+                          : "P2"
+                        : "X"
+                      : ""}
+                  </li>
+                  <li>
+                    {historyGames[2]
+                      ? historyGames[2]?.winner !== null
+                        ? historyGames[2]?.winner.nickname === "cross"
+                          ? "P1"
+                          : "P2"
+                        : "X"
+                      : ""}
+                  </li>
+                  <li>
+                    {historyGames[3]
+                      ? historyGames[3]?.winner !== null
+                        ? historyGames[3]?.winner.nickname === "cross"
+                          ? "P1"
+                          : "P2"
+                        : "X"
+                      : ""}
+                  </li>
+                  <li>
+                    {historyGames[4]
+                      ? historyGames[4]?.winner !== null
+                        ? historyGames[4]?.winner.nickname === "cross"
+                          ? "P1"
+                          : "P2"
+                        : "X"
+                      : ""}
+                  </li>
+                  <li>
+                    {historyGames[5]
+                      ? historyGames[5]?.winner !== null
+                        ? historyGames[5]?.winner.nickname === "cross"
+                          ? "P1"
+                          : "P2"
+                        : "X"
+                      : ""}
+                  </li>
+                  <li>
+                    {historyGames[6]
+                      ? historyGames[6]?.winner !== null
+                        ? historyGames[6]?.winner.nickname === "cross"
+                          ? "P1"
+                          : "P2"
+                        : "X"
+                      : ""}
+                  </li>
+                  <li>
+                    {historyGames[7]
+                      ? historyGames[7]?.winner !== null
+                        ? historyGames[7]?.winner.nickname === "cross"
+                          ? "P1"
+                          : "P2"
+                        : "X"
+                      : ""}
+                  </li>
+                  <li>
+                    {historyGames[8]
+                      ? historyGames[8]?.winner !== null
+                        ? historyGames[8]?.winner.nickname === "cross"
+                          ? "P1"
+                          : "P2"
+                        : "X"
+                      : ""}
+                  </li>
                 </ul>
               </div>
             </div>
@@ -82,7 +177,9 @@ const GameStatistics: React.FC = () => {
       </div>
       <div className={styles.totalTimer}>
         <h4>Total time</h4>
-        <span>00:44:12</span>
+        <span>
+          <Stopwatch start={!gameIsFinished} pause={gameIsFinished} />
+        </span>
       </div>
     </section>
   );

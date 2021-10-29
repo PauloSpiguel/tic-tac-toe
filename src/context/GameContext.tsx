@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { toast as notify } from "react-toastify";
 
 import { PlayerContext } from "./PlayerContext";
@@ -16,28 +22,29 @@ type Player = {
   avatar_url?: string;
 };
 
-interface HistoryGame {
+interface HistoryMatch {
   winner: Player;
-  loser: Player;
-  date: string;
-  timer: number;
 }
 
 interface GameContextData {
   gameSquare: string[];
+  winner: Player;
+  gameIsFinished: boolean;
+
+  historyGames: HistoryMatch[];
   onGameSquare: (key: number) => void;
   onGameOver: () => void;
-  winner: Player;
 }
 
 export const GameContext = createContext({} as GameContextData);
 
 const GameContextProvider: React.FC = ({ children }) => {
   const [gameSquare, setGameSquare] = useState(INITIAL_STATE);
-  const [historyGame, setHistoryGame] = useState<HistoryGame[]>([]);
+  const [historyGames, setHistoryGames] = useState<HistoryMatch[]>([]);
   const [winner, setWinner] = useState<Player>(null);
+  const [gameIsFinished, setGameIsFinished] = useState<boolean>(false);
 
-  const { player, onChangePlayer } = useContext(PlayerContext);
+  const { player, onChangePlayer, onUpdateScore } = useContext(PlayerContext);
 
   function onGameSquare(index: number) {
     const newGameSquare = [...gameSquare];
@@ -54,15 +61,15 @@ const GameContextProvider: React.FC = ({ children }) => {
       });
     }
 
-    newGameSquare[index] = player.nickname;
+    newGameSquare[index] = player?.nickname;
 
     setGameSquare(newGameSquare);
 
-    onChangePlayer(player);
-  }
+    /*   localStorage.setItem(
+      "tic-tac-toe.gameSquare",
+      JSON.stringify(newGameSquare)
+    ); */
 
-  function onResetGame() {
-    setGameSquare(INITIAL_STATE);
     onChangePlayer(player);
   }
 
@@ -78,7 +85,38 @@ const GameContextProvider: React.FC = ({ children }) => {
     });
   }
 
-  useEffect(() => {
+  function onGameFinish() {
+    setGameIsFinished(true);
+  }
+
+  function onResetGame() {
+    setGameSquare(INITIAL_STATE);
+    onChangePlayer(player);
+
+    if (historyGames.length < 8) {
+      setWinner(null);
+    }
+  }
+
+  const onRecordGame = useCallback(
+    (winner: Player) => {
+      const newHistoryGames = [...historyGames];
+
+      newHistoryGames.push({
+        winner,
+      });
+
+      setHistoryGames(newHistoryGames);
+
+      /*  localStorage.setItem(
+        "tic-tac-toe.historyGames",
+        JSON.stringify(newHistoryGames)
+      ); */
+    },
+    [historyGames]
+  );
+
+  const checkCombination = (): void => {
     const combinations = [
       [0, 1, 2],
       [3, 4, 5],
@@ -90,7 +128,17 @@ const GameContextProvider: React.FC = ({ children }) => {
       [2, 4, 6],
     ];
 
-    const checkCombination = (): void => {
+    if (gameSquare.filter((item) => item === "").length === 0) {
+      onRecordGame(null);
+
+      notify.info("Draw!", {
+        autoClose: 3000,
+      });
+
+      setTimeout(() => {
+        onResetGame();
+      }, 3000);
+    } else {
       combinations.forEach((combination) => {
         const [a, b, c] = combination;
 
@@ -99,31 +147,51 @@ const GameContextProvider: React.FC = ({ children }) => {
           gameSquare[a] === gameSquare[b] &&
           gameSquare[a] === gameSquare[c]
         ) {
-          const winner = player.name;
+          const currentWinner = player.name;
 
           setWinner(player);
+          onUpdateScore(player);
+          onRecordGame(player);
 
-          notify.success(`Player ${winner} won!`, {
-            onClose: () => {},
+          notify.success(`Player ${currentWinner} won!`, {
+            autoClose: 3000,
           });
 
-          /*   setTimeout(() => {
+          setTimeout(() => {
             onResetGame();
-          }, 2000); */
-
-          //onGameOver();
-          //onChangePlayer();
+          }, 3000);
         }
       });
-    };
+    }
+  };
 
+  useEffect(() => {
     checkCombination();
-  }, [gameSquare]);
+  }, [gameSquare, player]);
+
+  useEffect(() => {
+    if (historyGames.length > 8) {
+      onGameFinish();
+    }
+  }, [historyGames]);
+
+  /*   useEffect(() => {
+    const gameHistoryStorage = localStorage.getItem("tic-tac-toe.historyGames");
+    const gameSquareStorage = localStorage.getItem("tic-tac-toe.gameSquare");
+
+    const parseHistoryData = JSON.parse(gameHistoryStorage);
+    const parseSquareData = JSON.parse(gameSquareStorage);
+
+    setHistoryGames(parseHistoryData || []);
+    setGameSquare(parseSquareData || INITIAL_STATE);
+  }, []); */
 
   return (
     <GameContext.Provider
       value={{
         winner,
+        gameIsFinished,
+        historyGames,
         gameSquare,
         onGameSquare,
         onGameOver,

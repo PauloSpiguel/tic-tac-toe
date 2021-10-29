@@ -11,7 +11,7 @@ function App() {
   return (
     <PlayerContextProvider>
       <GameContextProvider>
-        <Routes />;
+        <Routes />
         <ToastContainer />
       </GameContextProvider>
     </PlayerContextProvider>

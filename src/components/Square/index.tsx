@@ -15,6 +15,8 @@ const Square: React.FC<SquareProps> = ({ value, position }) => {
   const { onGameSquare, winner } = useContext(GameContext);
 
   function handleChangeMark(index: number) {
+    console.log({ value }, position);
+
     if (winner) {
       return;
     }
@@ -27,7 +29,7 @@ const Square: React.FC<SquareProps> = ({ value, position }) => {
       className={styles.container}
       onClick={() => handleChangeMark(position)}
     >
-      {!value ? (
+      {!value || value === undefined ? (
         <div className={styles.nullValue} />
       ) : value === "circle" ? (
         <div className={styles.squareImage}>

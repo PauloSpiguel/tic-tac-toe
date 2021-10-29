@@ -1,38 +1,37 @@
-import { useState } from "react";
+import { useContext } from "react";
+import { PlayerContext } from "../../context/PlayerContext";
+
+import logoCross from "../../assets/images/X_bright.svg";
+import logoCircle from "../../assets/images/O_dark.svg";
+
 import styles from "./styles.module.scss";
 
-interface PlayerProfileProps {
-  img: string;
-}
-
 export default function PlayerProfile() {
-  const [player, setPlayer] = useState({} as PlayerProfileProps);
+  const { player } = useContext(PlayerContext);
 
   return (
     <section className={styles.container}>
       <div className={styles.wrapperPlayer}>
         <div className={styles.imgProfile}>
-          {player.img ? (
-            <img src={player.img} alt="profile" />
+          {!!player?.avatar_url ? (
+            <img src={player?.avatar_url} alt="Profile" />
           ) : (
-            <div>(Photo area)</div>
+            <img
+              src={player?.nickname === "cross" ? logoCross : logoCircle}
+              alt={player?.nickname}
+            />
           )}
         </div>
         <div className={styles.infoPlayer}>
           <div className={styles.detailPlayer}>
-            <h2>John Smith</h2>
-            <span>Age: 30</span>
-            <span>Location: Porto</span>
-            <span>Occupation: Ui/Ux designer</span>
+            <h2>{player?.name}</h2>
+            <span>Age: {player?.age}</span>
+            <span>Location: {player?.location}</span>
+            <span>Occupation: {player?.occupation}</span>
           </div>
           <div className={styles.aboutPlayer}>
             <h4>About me:</h4>
-            <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Perspiciatis possimus, voluptas ipsa vero tempore asperiores
-              eveniet hic nobis enim quos, deleniti suscipit laborum distinctio
-              inventore quas error, explicabo dolor ratione.
-            </p>
+            <p>{player?.about}</p>
           </div>
         </div>
       </div>

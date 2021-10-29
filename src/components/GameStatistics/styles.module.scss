@@ -135,6 +135,10 @@
                   margin-left: 4px;
                 }
               }
+
+              .isActive {
+                background: var(--color-gray-200);
+              }
             }
           }
         }

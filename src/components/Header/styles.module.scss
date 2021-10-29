@@ -3,6 +3,9 @@
   background: var(--color-gray-100);
   padding: 0 1.25rem;
 
+  position: fixed;
+  z-index: 999;
+
   .container {
     max-width: 1400px;
     margin: 0 auto;
