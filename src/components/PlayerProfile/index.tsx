@@ -24,7 +24,7 @@ export default function PlayerProfile() {
         </div>
         <div className={styles.infoPlayer}>
           <div className={styles.detailPlayer}>
-            <h2>{player?.name}</h2>
+            <h1>{player?.name}</h1>
             <span>Age: {player?.age}</span>
             <span>Location: {player?.location}</span>
             <span>Occupation: {player?.occupation}</span>

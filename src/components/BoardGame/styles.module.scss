@@ -89,13 +89,15 @@
         justify-content: center;
 
         .boardBodyPlayer {
-          display: flex;
-          flex-direction: row;
-          justify-content: center;
+          display: grid;
+          grid-template-areas:
+            "player1 boardGame player2"
+            "stopwatch stopwatch stopwatch";
+
           margin-top: 1.5rem;
-          width: 100%;
 
           .boardGame {
+            grid-area: boardGame;
             background: #fff;
             border: 2px solid var(--color-gray-200);
             margin: 0 1.2rem;
@@ -107,6 +109,10 @@
 
               display: grid;
               grid-template-columns: repeat(3, 150px);
+
+              @media screen and (max-width: 480px) {
+                grid-template-columns: repeat(3, 1fr);
+              }
             }
           }
 
@@ -115,10 +121,10 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            margin: 1rem;
+            margin: 1rem 0;
 
             h3 {
-              font-size: 1.4rem;
+              font-size: 1.8rem;
               font-weight: bold;
               margin-bottom: 1rem;
               text-align: center;
@@ -133,17 +139,38 @@
             }
           }
 
+          .scorePlayer1 {
+            grid-area: player1;
+          }
+
+          .scorePlayer2 {
+            grid-area: player2;
+          }
+
+          .stopwatch {
+            grid-area: stopwatch;
+            margin-top: 1.5rem;
+
+            span {
+              font-size: 2rem;
+            }
+          }
+
           .isActive {
             color: var(--color-blue);
             transform: scale(1.2);
           }
-        }
-      }
 
-      .boardTimer {
-        margin-top: 1.5rem;
-        span {
-          font-size: 1.5rem;
+          @media screen and (max-width: 480px) {
+            grid-template-columns: 1fr auto 1fr;
+            grid-template-areas:
+              "boardGame boardGame boardGame"
+              "player1 stopwatch player2";
+
+            .stopwatch {
+              margin-top: 1rem;
+            }
+          }
         }
       }
     }

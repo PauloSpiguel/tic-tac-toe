@@ -2,6 +2,7 @@
   border: 2px solid var(--color-gray-200);
   width: 150px;
   height: 150px;
+
   flex: 1;
   cursor: pointer;
 
@@ -16,5 +17,10 @@
     img {
       object-fit: cover;
     }
+  }
+
+  @media screen and (max-width: 480px) {
+    height: 110px;
+    width: 113px;
   }
 }

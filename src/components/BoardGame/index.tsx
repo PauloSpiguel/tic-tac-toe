@@ -69,8 +69,8 @@ export default function BoardGame() {
             <div className={styles.boardBodyPlayer}>
               <div
                 className={`${styles.gamePlayerTitleScore} ${
-                  gameRoom[0] === player ? styles.isActive : ""
-                }`}
+                  styles.scorePlayer1
+                } ${gameRoom[0] === player ? styles.isActive : ""}`}
               >
                 <h3>Player 1</h3>
                 <h1>{gameRoom[0]?.score}</h1>
@@ -96,23 +96,23 @@ export default function BoardGame() {
               </div>
               <div
                 className={`${styles.gamePlayerTitleScore} ${
-                  gameRoom[1] === player ? styles.isActive : ""
-                }`}
+                  styles.scorePlayer2
+                } ${gameRoom[1] === player ? styles.isActive : ""}`}
               >
                 <h3>Player 2</h3>
                 <h1>{gameRoom[1]?.score}</h1>
               </div>
+              <div className={styles.stopwatch}>
+                <Stopwatch
+                  start={gameSquare.some((s) => s !== "")}
+                  pause={!!winner || gameSquare.every((s) => s !== "")}
+                  reset={
+                    (!!winner && gameSquare.some((s) => s !== "")) ||
+                    gameSquare.every((s) => s !== "")
+                  }
+                />
+              </div>
             </div>
-          </div>
-          <div className={styles.boardTimer}>
-            <Stopwatch
-              start={gameSquare.some((s) => s !== "")}
-              pause={!!winner || gameSquare.every((s) => s !== "")}
-              reset={
-                (!!winner && gameSquare.some((s) => s !== "")) ||
-                gameSquare.every((s) => s !== "")
-              }
-            />
           </div>
         </div>
       </div>
